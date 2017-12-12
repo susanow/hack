@@ -1,0 +1,21 @@
+# References
+#  - http://wolfin.hatenablog.com/entry/2016/09/26/155754
+#  - https://hub.docker.com/r/tutum/influxdb/
+#  - https://qiita.com/manabuishiirb/items/81678cc4ddda6679141d
+
+version: "2"
+
+services:
+
+  influxdb:
+    image: tutum/influxdb
+    ports:
+      - 8083:8083 # InfluxDB Web UI
+      - 8086:8086 # InfluxDB HTTP API
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000 # Grafana Web UI
+
+
