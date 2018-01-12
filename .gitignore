@@ -1,5 +1,6 @@
 .DS_Store
-memo/*.png
+plots/*.png
+matplots/*.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
