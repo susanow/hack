@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+import matplotlib
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 
 def main():
@@ -14,8 +17,8 @@ def main():
     plt.plot( [1,2,3], 'w') # 白
 
     # # プロット方式と同時指定
-    # plt.plot( [1,2,3], '--b') # 破線 + 青
-    # plt.savefig("file.png")
+    plt.plot( [1,2,3], '--b') # 破線 + 青
+    plt.savefig("file.png")
 
     return
 
