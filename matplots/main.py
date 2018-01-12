@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 
+
+import numpy as np
 import matplotlib
 matplotlib.use("Agg")
-
 import matplotlib.pyplot as plt
 
 def main():
 
-    plt.plot( [1,2,3], 'b') # 青
-    plt.plot( [1,2,3], 'g') # 緑
-    plt.plot( [1,2,3], 'r') # 赤
-    plt.plot( [1,2,3], 'c') # シアン
-    plt.plot( [1,2,3], 'm') # マゼンタ
-    plt.plot( [1,2,3], 'y') # イエロー
-    plt.plot( [1,2,3], 'b') # 黒
-    plt.plot( [1,2,3], 'w') # 白
+    fname = "dat_l2fwd1b_delay050_pkt064.dat"
+    data = np.loadtxt(fname, delimiter=',')
 
-    # # プロット方式と同時指定
-    plt.plot( [1,2,3], '--b') # 破線 + 青
+    input1 = data[:,1]
+    input2 = data[:,2]
+    input3 = data[:,3]
+    input4 = data[:,4]
+    plt.plot(input1, label="flow")
+    plt.plot(input2, label="test0")
+    plt.plot(input3, label="test1")
+    plt.plot(input4, label="test2")
+    plt.legend(loc=2)
+    plt.show()
     plt.savefig("file.png")
 
     return
