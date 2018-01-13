@@ -5,4 +5,6 @@ all:
 clean:
 	rm -f *.png
 
+install:
+	cp *.png ../figs
 
