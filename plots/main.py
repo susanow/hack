@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def draw_fig(delay, pktsize, f_idx, t1_idx, t2_idx, t4_idx):
     inputname  = 'sinewave_traffic.csv'
-    outputname = 'delay{:03}_pkt{:03}'.format(delay, pktsize)
+    outputname = 'delay{:03}_pkt{:03}_thrdN'.format(delay, pktsize)
     print('{}(in={}, out={})'.format(
         sys._getframe().f_code.co_name,
         inputname, outputname))
