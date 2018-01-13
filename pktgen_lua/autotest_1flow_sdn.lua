@@ -88,64 +88,44 @@ setting(pktsize)
 
 print('\n\n')
 print('[+] start Traffic test...')
-local cnt, tr_array, tpr_array = traffic_test(test_times)
+local cnt, tr_array, tpr_array_1thrd = traffic_test(test_times)
+
+print('d2 outing...')
+local r = os.execute('SSN_HOST=labnet5.dpdk.ninja ssnctl d2 out vnf0')
+if r == nil then
+	print('d2 out error')
+	return
+end
+print('d2 outing...done')
+pktgen.delay(2000)
+local cnt, tr_array, tpr_array_2thrd = traffic_test(test_times)
+
+print('d2 outing...')
+local r = os.execute('SSN_HOST=labnet5.dpdk.ninja ssnctl d2 out vnf0')
+if r == nil then
+	print('d2 out error')
+	return
+end
+print('d2 outing...done')
+pktgen.delay(2000)
+local cnt, tr_array, tpr_array_4thrd = traffic_test(test_times)
 
 print('\n\n')
 print('[+] Out Test Results to File...')
 local f = io.open('/home/slank/pktgen.dat', 'w')
-local fmt = '#####    %-5s  %-5s\n'
-str = fmt:format('flow0', 'tpr1')
+local fmt = '#####    %-5s  %-5s  %-5s  %-5s\n'
+str = fmt:format('flow0', 'tpr1', 'tpr2', 'tpr4')
 f:write(str)
 for i=1, cnt, 1 do
-	local fmt  = '%05d,   %05d, %05d\n'
+	local fmt  = '%05d,   %05d, %05d, %05d, %05d\n'
 	local tr   = tr_array[i]
-	local tpr = tpr_array[i]
-	local str  = fmt:format(i, tr, tpr)
+	local tpr1 = tpr_array_1thrd[i]
+	local tpr2 = tpr_array_2thrd[i]
+	local tpr4 = tpr_array_4thrd[i]
+	local str  = fmt:format(i, tr, tpr1, tpr2, tpr4)
 	f:write(str)
 end
-
 f:close()
 print('\n\nok')
-
-return
-
--- print('d2 outing...')
--- local r = os.execute('SSN_HOST=labnet5.dpdk.ninja ssnctl d2 out vnf0')
--- if r == nil then
--- 	print('d2 out error')
--- 	return
--- end
--- print('d2 outing...done')
--- pktgen.delay(2000)
--- cnt, avg_rx, avg_tx = traffic_test(test_times)
--- if cnt < 0 then
--- 	print('taffic_test error')
--- 	return
--- end
---
--- print('d2 outing...')
--- r = os.execute('SSN_HOST=labnet5.dpdk.ninja ssnctl d2 out vnf0')
--- if r == nil then
--- 	print('d2 out error')
--- 	return
--- end
--- print('d2 outing...done')
--- pktgen.delay(2000)
--- cnt, avg_rx, avg_tx = traffic_test(test_times)
--- if cnt < 0 then
--- 	print('taffic_test error')
--- 	return
--- end
-
-
--- avg_rate = math.floor(avg_rx/avg_tx * 100)
--- print('\n\nResults')
--- print('-----------------------')
--- printf('pktsize  : %d[Byte]\n', pktsize)
--- printf('times    : %d[times]\n', test_times)
--- printf('avg-rx   : %d[Mbps]\n', avg_rx)
--- printf('avg-tx   : %d[Mbps]\n', avg_tx)
--- printf('proc-rate: %d[%%]\n'  , avg_rate)
--- print('\n')
 
 
