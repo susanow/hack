@@ -42,9 +42,6 @@ end
 
 function spcos(i)
 	d = 40 * math.cos(i) + 60
-	-- d = d * 100
-	-- d = d + 100
-	-- d = d/200 * 100
 	d = math.floor(d)
 	return d
 end
@@ -54,19 +51,26 @@ function traffic_test(test_times)
 		return -1
 	end
 
+	local date = os.date("*t")
+	local time = date["hour"]..date["min"]..date["sec"]
+	-- local f = io.open('/tmp/pktgen.dat', 'w')
+	local f = io.open('/home/slank/pktgen.dat', 'w')
+	local fmt = '#####    %-5s  %-5s  \n'
+	str = fmt:format('flow0', 'tpr')
+	printf('%s', str)
+	f:write(str)
+
 	pktgen.clr();
 	pktgen.start('0-1');
-	pktgen.start('2-3');
 	local cnt = 0
 	local sum_rx = 0
 	local sum_tx = 0
+	local idx = 1
 	for j=0, test_times-1, 1 do
 		PI = 3.14
 		for i=0.0, 2*PI, 0.10 do
 			local d = spcos(i)
-			local e = spcos(i + PI)
 			pktgen.set('0-1', 'rate', d)
-			pktgen.set('2-3', 'rate', e)
 			pktgen.delay(1000)
 
 			local s = pktgen.portStats("all", "rate");
@@ -78,20 +82,24 @@ function traffic_test(test_times)
 			sum_tx = sum_tx + cur_tx
 			cnt = cnt + 1
 
-			printf('flow0_rate:%03d%%,\tflow1_rate:%03d%%,\t', d, e)
-			printf('rx_rate:%dMbps,\ttx_rate:%dMbps\t', cur_rx, cur_tx)
-			printf('rate:%d%% \n', math.floor(cur_rx/cur_tx*100))
+			fmt = '%05d    %05d  %05d\n'
+			local str = fmt:format(idx, d, math.floor(cur_rx/cur_tx*100))
+			printf("%s", str)
+			f:write(str)
+			f:flush()
 
+			idx = idx + 1
 		end
 	end
 	pktgen.stop('0-1');
-	pktgen.stop('2-3');
+
+	f:close()
 	return cnt, math.floor(sum_rx/cnt), math.floor(sum_tx/cnt)
 end
 
 
-pktsize = 64
-test_times = 4
+pktsize = 128
+test_times = 1
 setting(pktsize)
 print('\n\n')
 print('[+] start Traffic test...')
