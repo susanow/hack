@@ -54,9 +54,9 @@ function traffic_test(test_times)
 	local date = os.date("*t")
 	local time = date["hour"]..date["min"]..date["sec"]
 	-- local f = io.open('/tmp/pktgen.dat', 'w')
-	local f = io.open('/home/slank/git/hack/memo/pktgen.dat', 'w')
-	local fmt = '#####    %-5s  %-5s  %-5s  %-5s\n'
-	str = fmt:format('flow0', 'rxtr', 'txtr', 'tpr')
+	local f = io.open('/home/slank/pktgen.dat', 'w')
+	local fmt = '#####    %-5s  %-5s  \n'
+	str = fmt:format('flow0', 'tpr')
 	printf('%s', str)
 	f:write(str)
 
@@ -82,8 +82,8 @@ function traffic_test(test_times)
 			sum_tx = sum_tx + cur_tx
 			cnt = cnt + 1
 
-			fmt = '%-5d    %-5d  %-5d  %-5d  %-5d\n'
-			local str = fmt:format(idx, d, cur_rx, cur_tx, math.floor(cur_rx/cur_tx*100))
+			fmt = '%05d    %05d  %05d\n'
+			local str = fmt:format(idx, d, math.floor(cur_rx/cur_tx*100))
 			printf("%s", str)
 			f:write(str)
 			f:flush()
@@ -98,7 +98,7 @@ function traffic_test(test_times)
 end
 
 
-pktsize = 64
+pktsize = 128
 test_times = 1
 setting(pktsize)
 print('\n\n')
