@@ -82,7 +82,7 @@ end
 
 print('\n\n')
 print('[+] Setting Traffic Configuraton...')
-pktsize = 64
+pktsize = 128
 test_times = 1
 setting(pktsize)
 
@@ -112,7 +112,8 @@ local cnt, tr_array, tpr_array_4thrd = traffic_test(test_times)
 
 print('\n\n')
 print('[+] Out Test Results to File...')
-local f = io.open('/home/slank/pktgen.dat', 'w')
+local fname = string.format('/home/slank/pktgen_pkt%d.dat', pktsize)
+local f = io.open(fname, 'w')
 local fmt = '#####    %-5s  %-5s  %-5s  %-5s\n'
 str = fmt:format('flow0', 'tpr1', 'tpr2', 'tpr4')
 f:write(str)

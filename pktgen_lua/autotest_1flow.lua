@@ -40,7 +40,7 @@ function setting(arg_pkt_size)
 end
 
 function spcos(i)
-	d = 40 * math.cos(i) + 60
+	d = 20 * math.cos(i) + 30
 	d = math.floor(d)
 	return d
 end
@@ -70,7 +70,7 @@ function traffic_test(test_times)
 
 		tr = spcos(i)
 		pktgen.set('0-1', 'rate', tr)
-		pktgen.delay(1000)
+		pktgen.delay(2000)
 		idx = idx + 1
 	end
 	pktgen.stop('0-1');
@@ -82,8 +82,8 @@ end
 
 print('\n\n')
 print('[+] Setting Traffic Configuraton...')
-pktsize = 64
-test_times = 1
+pktsize = 128
+test_times = 8
 setting(pktsize)
 
 print('\n\n')
@@ -92,12 +92,13 @@ local cnt, tr_array, tpr_array = traffic_test(test_times)
 
 print('\n\n')
 print('[+] Out Test Results to File...')
-local f = io.open('/home/slank/pktgen.dat', 'w')
+local fname = string.format('/home/slank/pktgen_pkt%d.dat', pktsize)
+local f = io.open(fname, 'w')
 local fmt = '#####    %-5s  %-5s\n'
 str = fmt:format('flow0', 'tpr1')
 f:write(str)
 for i=1, cnt, 1 do
-	local fmt  = '%05d,   %05d, %05d\n'
+	local fmt  = '%05d,  %05d, %05d\n'
 	local tr   = tr_array[i]
 	local tpr = tpr_array[i]
 	local str  = fmt:format(i, tr, tpr)
