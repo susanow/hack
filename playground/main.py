@@ -9,30 +9,23 @@ import matplotlib.pyplot as plt
 def main():
     plt.close()
     plt.ylim([0,105])
-    tmpfile = 'tmp.csv'
-    thrd1_file = '1thrd_dat.csv'
-    thrd4_file = '4thrd_dat.csv'
-    outfile = 'out.png'
+    plt.ylabel('Rate [%]')
+    plt.xlabel('Time [sec]')
+    plt.title('Auto Optimization of Traffic Process using D2')
 
-    td1 = pd.read_csv(thrd1_file,
-            names=['flow', '1thrd', 'resrc'],
-            comment='#')
-
-    td4 = pd.read_csv(thrd4_file,
-            names=['flow', '4thrd', 'resrc'],
-            comment='#')
-
-    tmp = pd.read_csv(tmpfile,
+    tmp = pd.read_csv('tmp.csv',
             names=['flow', 'd2opt', 'resrc'],
             comment='#')
+    ct1 = pd.read_csv('1thrd_dat.csv', names=['flow', 'tpr'], comment='#')
+    ct4 = pd.read_csv('4thrd_dat.csv', names=['flow', 'tpr'], comment='#')
 
-    plt.plot(tmp['flow'] , label="Traffic pktsize=128Byte")
-    plt.plot(td1['1thrd'], label="TPR 1thrd-const")
-    plt.plot(td4['4thrd'], label="TPR 4thrd-const")
-    plt.plot(tmp['d2opt'], label="TPR d2 auto optimization")
-    plt.plot(tmp['resrc'], label="resourcing")
+    plt.plot(tmp['flow'], label="10GbE Traffic pktsize=128Byte flexrate")
+    plt.plot(tmp['d2opt'], label="Traffic Process Rate using d2-auto-optimization")
+    # plt.plot(ct1['tpr'], label="# of thread = 1 const")
+    # plt.plot(ct4['tpr'], label="# of thread = 4 const")
+    plt.plot(tmp['resrc'], label="Computer resource for PktFwd")
     plt.legend(loc=4, fontsize=8)
-    plt.savefig(outfile)
+    plt.savefig('out.png')
 
 
 if __name__ == '__main__':
