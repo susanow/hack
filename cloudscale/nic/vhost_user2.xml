@@ -1,0 +1,9 @@
+
+<interface type='vhostuser'>
+	<mac address='52:54:00:dd:00:02'/>
+	<source type='unix' path='/usr/local/var/run/openvswitch/vhost_user2' mode='client'/>
+	<model type='virtio'/>
+	<driver queues='2'>
+		<host mrg_rxbuf='on'/>
+	</driver>
+</interface>
