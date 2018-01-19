@@ -1,47 +1,57 @@
 #!/usr/bin/env python3
 
-import math
-import pandas as pd
-import matplotlib
-matplotlib.use("Agg")
+import numpy as np
 import matplotlib.pyplot as plt
 from pprint import pprint
 
 
 
 def main():
-    # plt.ylim([0,105])
-    # plt.ylabel('Rate [%]')
-    # plt.xlabel('Time [sec]')
-    # plt.title('Totemo Totemo SUGOI NFV')
 
-    vnf0 = pd.read_csv('ssn_vnf0_perfmonitor.csv',
-            names=['ts', 'flow', 'tpr', 'ncore'], comment='#')
-    vnf1 = pd.read_csv('ssn_vnf1_perfmonitor.csv',
-            names=['ts', 'flow', 'tpr', 'ncore'], comment='#')
+    data = np.loadtxt('/tmp/ssn_record.csv', delimiter=',', comments='#')
+    idx      = data[:,0]
+    ts       = data[:,1]
+    vnf0traf = data[:,2]
+    vnf0tpr  = data[:,3]
+    vnf0core = data[:,4]
+    vnf1traf = data[:,5]
+    vnf1tpr  = data[:,6]
+    vnf1core = data[:,7]
 
-    for i in range(len(vnf0["ncore"])):
-        tmp = vnf0["ncore"][i+1]
-        vnf0["ncore"][i] = math.floor(tmp / 4.0 * 100)
+    xbegin = 25
+    xend   = 170
 
-    for i in range(len(vnf1["ncore"])):
-        tmp = vnf1["ncore"][i+1]
-        vnf1["ncore"][i] = math.floor(tmp / 4.0 * 100)
+    fig, ax1 = plt.subplots(2)
+    ax1[1].set_xlabel('time [sec]')
 
-    fig, ax1 = plt.subplots()
-    ax1.plot(vnf0['flow'], color='b', label="vnf0 traffic", linestyle="dotted")
-    ax1.plot(vnf1['flow'], color='r', label="vnf1 traffic", linestyle="dotted")
+    ax1[0].set_ylabel('Traffic Process Rate [%]')
+    ax1[0].set_ylim([0,120])
+    ax1[0].set_xlim([xbegin, xend])
+    ax1[0].plot(idx, vnf0tpr, color="b")
+    ax1[0].plot(idx, vnf1tpr, color="r")
 
-    ax2 = ax1.twinx()
-    ax2.plot(vnf0['tpr'], color="b", label="vnf0 TPR", linestyle="solid")
-    ax2.plot(vnf1['tpr'], color="r", label="vnf1 TPR", linestyle="solid")
-    ax2.plot(vnf0['ncore'], color="b", label="vnf0 cores", linestyle="dashed")
-    ax2.plot(vnf1['ncore'], color="r", label="vnf1 cores", linestyle="dashed")
+    ax2 = ax1[0].twinx()
+    ax2.set_ylabel('Traffic Rate [pps]')
+    ax2.set_xlim([xbegin, xend])
+    ax2.set_ylim([0, 25000000])
+    ax2.bar(idx, vnf0traf, color="b")
+    ax2.bar(idx, vnf1traf, bottom=vnf0traf,color="r")
 
-    ax1.legend(loc=0, fontsize=8)
-    ax2.legend(loc=4, fontsize=8)
-    ax1.set_ylim([0, 20000000])
-    ax2.set_ylim([0, 120])
+    ax1[1].set_ylabel('Traffic Process Rate [%]')
+    ax1[1].set_ylim([0,120])
+    ax1[1].set_xlim([xbegin, xend])
+    ax1[1].plot(idx, vnf0tpr, color="b")
+    ax1[1].plot(idx, vnf1tpr, color="r")
+
+    ax2 = ax1[1].twinx()
+    ax2.set_ylabel('Conputer Resourcing [#cores]')
+    ax2.set_xlim([xbegin, xend])
+    ax2.set_ylim([0, 10])
+    ax2.bar(idx, vnf0core, color="b")
+    ax2.bar(idx, vnf1core, bottom=vnf0core, color="r")
+
+    # ax1.legend(loc=0, fontsize=8)
+    # ax2.legend(loc=4, fontsize=8)
     plt.savefig('out.png')
 
 
