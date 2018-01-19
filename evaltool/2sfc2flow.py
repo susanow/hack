@@ -5,9 +5,10 @@ import matplotlib.pyplot as plt
 from pprint import pprint
 
 
+
 def main():
 
-    data = np.loadtxt('/tmp/ssn_record.csv', delimiter=',', comments='#')
+    data = np.loadtxt('2sfc2flow.csv', delimiter=',', comments='#')
     idx      = data[:,0]
     ts       = data[:,1]
     vnf0traf = data[:,2]
