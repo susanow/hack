@@ -18,12 +18,14 @@ def main():
             comment='#')
     ct1 = pd.read_csv('1thrd_dat.csv', names=['flow', 'tpr'], comment='#')
     ct4 = pd.read_csv('4thrd_dat.csv', names=['flow', 'tpr'], comment='#')
+    sss = pd.read_csv('ssn_vnf0_perfmonitor.csv', names=['rxpkt', 'tpr', 'nc'], comment='#')
 
-    plt.plot(tmp['flow'], label="10GbE Traffic pktsize=128Byte flexrate")
-    plt.plot(tmp['d2opt'], label="Traffic Process Rate using d2-auto-optimization")
+    # plt.plot(tmp['flow'], label="10GbE Traffic pktsize=128Byte flexrate")
+    # plt.plot(tmp['d2opt'], label="Traffic Process Rate using d2-auto-optimization")
     # plt.plot(ct1['tpr'], label="# of thread = 1 const")
     # plt.plot(ct4['tpr'], label="# of thread = 4 const")
-    plt.plot(tmp['resrc'], label="Computer resource for PktFwd")
+    # plt.plot(tmp['resrc'], label="Computer resource for PktFwd")
+    plt.plot(sss['tpr'], label="slankdev")
     plt.legend(loc=4, fontsize=8)
     plt.savefig('out.png')
 
