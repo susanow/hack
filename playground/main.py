@@ -6,26 +6,31 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
+
 def main():
-    plt.close()
-    plt.ylim([0,105])
-    plt.ylabel('Rate [%]')
-    plt.xlabel('Time [sec]')
-    plt.title('Auto Optimization of Traffic Process using D2')
+    # plt.ylim([0,105])
+    # plt.ylabel('Rate [%]')
+    # plt.xlabel('Time [sec]')
+    # plt.title('Totemo Totemo SUGOI NFV')
 
-    tmp = pd.read_csv('tmp.csv',
-            names=['flow', 'd2opt', 'resrc'],
-            comment='#')
-    ct1 = pd.read_csv('1thrd_dat.csv', names=['flow', 'tpr'], comment='#')
-    ct4 = pd.read_csv('4thrd_dat.csv', names=['flow', 'tpr'], comment='#')
+    vnf0 = pd.read_csv('/tmp/ssn_vnf0_perfmonitor.csv',
+            names=['flow', 'tpr', 'ncore'], comment='#')
+    vnf1 = pd.read_csv('/tmp/ssn_vnf1_perfmonitor.csv',
+            names=['flow', 'tpr', 'ncore'], comment='#')
 
-    plt.plot(tmp['flow'], label="10GbE Traffic pktsize=128Byte flexrate")
-    plt.plot(tmp['d2opt'], label="Traffic Process Rate using d2-auto-optimization")
-    # plt.plot(ct1['tpr'], label="# of thread = 1 const")
-    # plt.plot(ct4['tpr'], label="# of thread = 4 const")
-    plt.plot(tmp['resrc'], label="Computer resource for PktFwd")
-    plt.legend(loc=4, fontsize=8)
-    plt.savefig('out.png')
+
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+    ax2.set_ylim([0,200])
+
+    ax1.plot(vnf0['flow'], color="r", label="vnf0-trafiic")
+    ax1.plot(vnf1['flow'], color="b", label="vnf1-traffic")
+    ax2.plot(vnf0['tpr'], label="vnf0 TPR", )
+    ax2.plot(vnf1['tpr'], label="vnf1 TPR")
+    ax1.legend(loc=0, fontsize=8)
+    ax2.legend(loc=4, fontsize=8)
+    # plt.xlim([1516327378, 1516427448])
+    fig.savefig('out.png')
 
 
 if __name__ == '__main__':
