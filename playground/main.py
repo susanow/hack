@@ -18,7 +18,7 @@ def main():
     vnf1core = data[:,7]
 
     xbegin = 0
-    xend   = 130
+    xend   = 1100
 
     fig, ax1 = plt.subplots(2)
     ax1[1].set_xlabel('time [sec]')
