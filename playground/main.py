@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 from pprint import pprint
@@ -17,41 +18,43 @@ def main():
     vnf1tpr  = data[:,6]
     vnf1core = data[:,7]
 
+    avg_tpr = []
+    for i in range(len(vnf1tpr)):
+        avg = (vnf1tpr[i] + vnf0tpr[i])/2
+        avg = math.floor(avg)
+        avg_tpr.append(avg)
+
     xbegin = 0
-    xend   = 1100
+    xend   = 1100 # 8times
+    xend   = 550  # 4times
+    xend   = 150  # 1times
 
-    fig, ax1 = plt.subplots(2)
-    ax1[1].set_xlabel('time [sec]')
+    fig, ax1 = plt.subplots(3)
+    ax1[2].set_xlabel('time [sec]')
 
-    ax1[0].set_ylabel('Traffic Process Rate [%]')
-    ax1[0].set_ylim([0,120])
+    ax1[0].set_ylabel('Traffic [pps]')
+    ax1[0].set_ylim([0, 25000000])
     ax1[0].set_xlim([xbegin, xend])
-    ax1[0].plot(idx, vnf0tpr, color="b")
-    ax1[0].plot(idx, vnf1tpr, color="r")
+    ax1[0].bar(idx, vnf0traf, color="r", label='vnf0')
+    ax1[0].bar(idx, vnf1traf, bottom=vnf0traf,color="b", label='vnf1')
+    ax1[0].legend(loc=1, fontsize=8)
 
-    ax2 = ax1[0].twinx()
-    ax2.set_ylabel('Traffic Rate [pps]')
-    ax2.set_xlim([xbegin, xend])
-    ax2.set_ylim([0, 25000000])
-    ax2.bar(idx, vnf0traf, color="b")
-    ax2.bar(idx, vnf1traf, bottom=vnf0traf,color="r")
-
-    ax1[1].set_ylabel('Traffic Process Rate [%]')
-    ax1[1].set_ylim([0,120])
+    ax1[1].set_ylabel('[#cores]')
     ax1[1].set_xlim([xbegin, xend])
-    ax1[1].plot(idx, vnf0tpr, color="b")
-    ax1[1].plot(idx, vnf1tpr, color="r")
+    ax1[1].set_ylim([0, 20])
+    ax1[1].bar(idx, vnf0core, color="r", label='vnf0')
+    ax1[1].bar(idx, vnf1core, bottom=vnf0core, color="b", label='vnf1')
+    ax1[1].legend(loc=1, fontsize=8)
 
-    ax2 = ax1[1].twinx()
-    ax2.set_ylabel('Conputer Resourcing [#cores]')
-    ax2.set_xlim([xbegin, xend])
-    ax2.set_ylim([0, 10])
-    ax2.bar(idx, vnf0core, color="b")
-    ax2.bar(idx, vnf1core, bottom=vnf0core, color="r")
+    ax1[2].set_ylabel('Process Rate [%]')
+    ax1[2].set_ylim([0,120])
+    ax1[2].set_xlim([xbegin, xend])
+    ax1[2].plot(idx, vnf0tpr, color="r", label='vnf0')
+    ax1[2].plot(idx, vnf1tpr, color="b", label='vnf1')
+    ax1[2].plot(idx, avg_tpr, color="g", label='avg')
+    ax1[2].legend(loc=1, fontsize=8)
 
-    # ax1.legend(loc=0, fontsize=8)
-    # ax2.legend(loc=4, fontsize=8)
-    plt.savefig('out.png')
+    plt.savefig('out.png', dpi=150)
 
 
 if __name__ == '__main__':
