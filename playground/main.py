@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import math
+import math, sys
 import numpy as np
 import matplotlib.pyplot as plt
 from pprint import pprint
@@ -8,7 +8,16 @@ from pprint import pprint
 
 def main():
 
-    data = np.loadtxt('/tmp/ssn_record.csv', delimiter=',', comments='#')
+    infilename  = "/tmp/ssn_record.csv"
+    outfilename = "out.png"
+    if (len(sys.argv) > 2):
+        infilename  = sys.argv[1]
+        outfilename = sys.argv[2]
+
+    print("input : {}".format(infilename))
+    print("output: {}".format(outfilename))
+
+    data = np.loadtxt(infilename, delimiter=',', comments='#')
     idx      = data[:,0]
     ts       = data[:,1]
     vnf0traf = data[:,2]
@@ -27,7 +36,7 @@ def main():
     xbegin = 0
     xend   = 1100 # 8times
     xend   = 550  # 4times
-    xend   = 150  # 1times
+    xend   = 170  # 1times
 
     fig, ax1 = plt.subplots(3)
     ax1[2].set_xlabel('time [sec]')
@@ -54,7 +63,7 @@ def main():
     ax1[2].plot(idx, avg_tpr, color="g", label='avg')
     ax1[2].legend(loc=1, fontsize=8)
 
-    plt.savefig('out.png', dpi=150)
+    plt.savefig(outfilename, dpi=150)
 
 
 if __name__ == '__main__':

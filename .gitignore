@@ -1,6 +1,6 @@
 
 .DS_Store
-playground/*.png
+playground/
 plots/*.png
 matplots/*.png
 
