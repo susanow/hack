@@ -25,6 +25,10 @@ tuning parameter
 
 ![](d2disable84fix_d100.png)
 
+**Fixed Resourcing #core is 5 and 5**
+
+![](d2disable55fix_d100.png)
+
 **D2 Auto Scaling**
 
 ![](d2enable_d100.png)
