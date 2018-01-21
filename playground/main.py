@@ -5,6 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pprint import pprint
 
+def get_avg(array):
+    sumd = 0;
+    for i in array:
+        sumd = sumd + i
+    return math.floor(sumd/len(array))
 
 def main():
 
@@ -60,7 +65,8 @@ def main():
     ax1[2].set_xlim([xbegin, xend])
     ax1[2].plot(idx, vnf0tpr, color="r", label='vnf0')
     ax1[2].plot(idx, vnf1tpr, color="b", label='vnf1')
-    ax1[2].plot(idx, avg_tpr, color="g", label='avg')
+    labelstr = 'all avg={}'.format(get_avg(avg_tpr))
+    ax1[2].plot(idx, avg_tpr, color="g", label=labelstr)
     ax1[2].legend(loc=1, fontsize=8)
 
     plt.savefig(outfilename, dpi=150)
