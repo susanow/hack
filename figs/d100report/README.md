@@ -17,6 +17,10 @@ tuning parameter
     }
 ```
 
+**Fixed Resourcing #core is 4 and 4**
+
+![](d2disable44fix_d100.png)
+
 **Fixed Resourcing #core is 4 and 8**
 
 ![](d2disable84fix_d100.png)
