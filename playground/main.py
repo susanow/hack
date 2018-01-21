@@ -35,8 +35,8 @@ def main():
 
     xbegin = 0
     xend   = 1100 # 8times
-    xend   = 550  # 4times
     xend   = 170  # 1times
+    xend   = 600  # 4times
 
     fig, ax1 = plt.subplots(3)
     ax1[2].set_xlabel('time [sec]')
