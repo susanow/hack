@@ -39,9 +39,10 @@ def main():
         avg_tpr.append(avg)
 
     xbegin = 0
-    xend   = 1100 # 8times
     xend   = 170  # 1times
+    xend   = 1100 # 8times
     xend   = 600  # 4times
+    xend   = 220  # kukei
 
     fig, ax1 = plt.subplots(3)
     ax1[2].set_xlabel('time [sec]')
@@ -63,8 +64,10 @@ def main():
     ax1[2].set_ylabel('Process Rate [%]')
     ax1[2].set_ylim([0,120])
     ax1[2].set_xlim([xbegin, xend])
-    ax1[2].plot(idx, vnf0tpr, color="r", label='vnf0')
-    ax1[2].plot(idx, vnf1tpr, color="b", label='vnf1')
+    labelstr = 'vnf0 avg={}'.format(get_avg(vnf0tpr))
+    ax1[2].plot(idx, vnf0tpr, color="r", label=labelstr)
+    labelstr = 'vnf1 avg={}'.format(get_avg(vnf1tpr))
+    ax1[2].plot(idx, vnf1tpr, color="b", label=labelstr)
     labelstr = 'all avg={}'.format(get_avg(avg_tpr))
     ax1[2].plot(idx, avg_tpr, color="g", label=labelstr)
     ax1[2].legend(loc=1, fontsize=8)
