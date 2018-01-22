@@ -40,8 +40,9 @@ def main():
 
     xbegin = 0
     xend   = 1100 # 8times
-    xend   = 170  # 1times
     xend   = 600  # 4times
+    xend   = 170  # 1times
+    xend   = 135  # kukei
 
     fig, ax1 = plt.subplots(3)
     ax1[2].set_xlabel('time [sec]')
@@ -55,7 +56,7 @@ def main():
 
     ax1[1].set_ylabel('[#cores]')
     ax1[1].set_xlim([xbegin, xend])
-    ax1[1].set_ylim([0, 20])
+    ax1[1].set_ylim([0, 10])
     ax1[1].bar(idx, vnf0core, color="r", label='vnf0')
     ax1[1].bar(idx, vnf1core, bottom=vnf0core, color="b", label='vnf1')
     ax1[1].legend(loc=1, fontsize=8)
