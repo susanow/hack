@@ -3,7 +3,7 @@
 	<mac address='52:54:00:dd:00:01'/>
 	<source type='unix' path='/usr/local/var/run/openvswitch/vhost_user1' mode='client'/>
 	<model type='virtio'/>
-	<driver queues='2'>
+	<driver queues='8'>
 		<host mrg_rxbuf='on'/>
 	</driver>
 </interface>
