@@ -17,6 +17,14 @@ tuning parameter
     }
 ```
 
+**Result**
+
+Performance Compare between D2enable and D2disable-44fix.
+
+![](out.png)
+
+## MicroBenchmarks
+
 **Fixed Resourcing #core is 4 and 4**
 
 ![](d2disable44fix_d100.png)
