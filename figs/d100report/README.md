@@ -19,7 +19,7 @@ tuning parameter
 
 **Result**
 
-Performance Compare between D2enable and D2disable-44fix.
+Performance Compare between D2enable and D2disable-55fix.
 
 ![](out.png)
 
@@ -28,6 +28,10 @@ Performance Compare between D2enable and D2disable-44fix.
 **Fixed Resourcing #core is 4 and 4**
 
 ![](d2disable44fix_d100.png)
+
+**Fixed Resourcing #core is 5 and 5**
+
+![](d2disable55fix_d100.png)
 
 **Fixed Resourcing #core is 8 and 8**
 

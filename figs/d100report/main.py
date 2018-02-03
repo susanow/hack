@@ -16,7 +16,7 @@ def get_avg(array):
 
 def main():
 
-    d2di_filename = "d2disable44fix_d100.csv"
+    d2di_filename = "d2disable55fix_d100.csv"
     d2en_filename = "d2enable_d100.csv"
     outfilename = "out.png"
 
