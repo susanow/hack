@@ -45,10 +45,7 @@ def main():
     en_vnf1core = en_data[:,7]
 
     xbegin = 0
-    xend   = 170  # 1times
-    xend   = 1100 # 8times
-    xend   = 600  # 4times
-    xend   = 220  # kukei
+    xend   = 200
     bar_width = 1.0
     vnf0_color = "red"
     vnf1_color = "blue"
@@ -72,7 +69,7 @@ def main():
             label='vnf1')
     ax1[0].legend(loc=1, fontsize=8)
 
-    ax1[2].set_ylabel('D2disable\n#Cores')
+    ax1[1].set_ylabel('D2disable\n#Cores')
     ax1[1].set_xlim([xbegin, xend])
     ax1[1].set_ylim([0, 22])
     ax1[1].bar(di_idx, di_vnf0core,
