@@ -49,6 +49,7 @@ def main():
     xend   = 1100 # 8times
     xend   = 600  # 4times
     xend   = 220  # kukei
+    bar_width = 1.0
 
     fig, ax1 = plt.subplots(3)
     ax1[2].set_xlabel('time [sec]')
@@ -57,8 +58,10 @@ def main():
     ax1[0].set_ylim([0, 25000000])
     ax1[0].set_xlim([xbegin, xend])
     ax1[0].bar(di_idx, di_vnf0traf,
+            width=bar_width, edgecolor="none",
             color="r", label='vnf0')
     ax1[0].bar(di_idx, di_vnf1traf,
+            width=bar_width, edgecolor="none",
             bottom=di_vnf0traf,
             color="b", label='vnf1')
     ax1[0].legend(loc=1, fontsize=8)
@@ -67,8 +70,10 @@ def main():
     ax1[1].set_xlim([xbegin, xend])
     ax1[1].set_ylim([0, 22])
     ax1[1].bar(di_idx, di_vnf0core,
+            width=bar_width, edgecolor="none",
             color="r", label='vnf0')
     ax1[1].bar(di_idx, di_vnf1core,
+            width=bar_width, edgecolor="none",
             bottom=di_vnf0core,
             color="b", label='vnf1')
     ax1[1].legend(loc=1, fontsize=8)
@@ -87,8 +92,10 @@ def main():
     ax1[2].set_xlim([xbegin, xend])
     ax1[2].set_ylim([0, 22])
     ax1[2].bar(en_idx, en_vnf0core,
+            width=bar_width, edgecolor="none",
             color="r", label='vnf0')
     ax1[2].bar(en_idx, en_vnf1core,
+            width=bar_width, edgecolor="none",
             bottom=en_vnf0core,
             color="b", label='vnf1')
     ax1[2].legend(loc=1, fontsize=8)
