@@ -45,11 +45,10 @@ def main():
     en_vnf1core = en_data[:,7]
 
     xbegin = 0
-    xend   = 170  # 1times
-    xend   = 1100 # 8times
-    xend   = 600  # 4times
-    xend   = 220  # kukei
+    xend   = 200
     bar_width = 1.0
+    vnf0_color = "red"
+    vnf1_color = "blue"
 
     fig, ax1 = plt.subplots(3)
     ax1[2].set_xlabel('time [sec]')
@@ -58,55 +57,71 @@ def main():
     ax1[0].set_ylim([0, 25000000])
     ax1[0].set_xlim([xbegin, xend])
     ax1[0].bar(di_idx, di_vnf0traf,
-            width=bar_width, edgecolor="none",
-            color="r", label='vnf0')
+            width=bar_width,
+            edgecolor="none",
+            color=vnf0_color,
+            label='vnf0')
     ax1[0].bar(di_idx, di_vnf1traf,
-            width=bar_width, edgecolor="none",
+            width=bar_width,
+            edgecolor="none",
             bottom=di_vnf0traf,
-            color="b", label='vnf1')
+            color=vnf1_color,
+            label='vnf1')
     ax1[0].legend(loc=1, fontsize=8)
 
-    ax1[1].set_ylabel('# Cores')
+    ax1[1].set_ylabel('D2disable\n#Cores')
     ax1[1].set_xlim([xbegin, xend])
     ax1[1].set_ylim([0, 22])
     ax1[1].bar(di_idx, di_vnf0core,
-            width=bar_width, edgecolor="none",
-            color="r", label='vnf0')
+            width=bar_width,
+            edgecolor="none",
+            color=vnf0_color,
+            label='vnf0')
     ax1[1].bar(di_idx, di_vnf1core,
-            width=bar_width, edgecolor="none",
+            width=bar_width,
+            edgecolor="none",
             bottom=di_vnf0core,
-            color="b", label='vnf1')
+            color=vnf1_color,
+            label='vnf1')
     ax1[1].legend(loc=1, fontsize=8)
 
     ax2 = ax1[1].twinx()
     ax2.set_ylabel('Process Rate [%]')
     ax2.set_ylim([0,110])
     ax2.set_xlim([xbegin, xend])
-    ax2.plot(di_idx, di_vnf0tpr, color="r",
+    ax2.plot(di_idx, di_vnf0tpr,
+            color=vnf0_color,
             label= 'vnf0 avg={}'.format(get_avg(di_vnf0tpr)))
-    ax2.plot(di_idx, di_vnf1tpr, color="b",
+    ax2.plot(di_idx, di_vnf1tpr,
+            color=vnf1_color,
             label='vnf1 avg={}'.format(get_avg(di_vnf1tpr)))
     ax2.legend(loc=1, fontsize=8)
 
-    ax1[2].set_ylabel('# Cores')
+    ax1[2].set_ylabel('D2enable\n#Cores')
     ax1[2].set_xlim([xbegin, xend])
     ax1[2].set_ylim([0, 22])
     ax1[2].bar(en_idx, en_vnf0core,
-            width=bar_width, edgecolor="none",
-            color="r", label='vnf0')
+            width=bar_width,
+            edgecolor="none",
+            color=vnf0_color,
+            label='vnf0')
     ax1[2].bar(en_idx, en_vnf1core,
-            width=bar_width, edgecolor="none",
+            width=bar_width,
+            edgecolor="none",
             bottom=en_vnf0core,
-            color="b", label='vnf1')
+            color=vnf1_color,
+            label='vnf1')
     ax1[2].legend(loc=1, fontsize=8)
 
     ax2 = ax1[2].twinx()
     ax2.set_ylabel('Process Rate [%]')
     ax2.set_ylim([0,110])
     ax2.set_xlim([xbegin, xend])
-    ax2.plot(en_idx, en_vnf0tpr, color="r",
+    ax2.plot(en_idx, en_vnf0tpr,
+            color=vnf0_color,
             label= 'vnf0 avg={}'.format(get_avg(en_vnf0tpr)))
-    ax2.plot(en_idx, en_vnf1tpr, color="b",
+    ax2.plot(en_idx, en_vnf1tpr,
+            color=vnf1_color,
             label='vnf1 avg={}'.format(get_avg(en_vnf1tpr)))
     ax2.legend(loc=1, fontsize=8)
 
