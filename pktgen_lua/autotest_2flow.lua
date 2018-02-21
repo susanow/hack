@@ -69,8 +69,9 @@ function traffic_test(test_times)
 		table.insert(tpr_array, tpr)
 		print('insert   ', idx, tr, tpr)
 
-		tr = spcos(i)
-		tr2 = spcos(i + 3.14)
+		-- tr = spcos(i)
+		tr2 = spcos(i)
+		tr = spcos(i + 3.14)
 		pktgen.set('0-1', 'rate', tr)
 		pktgen.set('2-3', 'rate', tr2)
 		pktgen.delay(2500)
@@ -85,7 +86,7 @@ end
 print('\n\n')
 print('[+] Setting Traffic Configuraton...')
 pktsize = 128
-test_times = 4
+test_times = 1
 setting(pktsize)
 
 print('\n\n')

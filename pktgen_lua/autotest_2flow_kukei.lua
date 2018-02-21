@@ -86,7 +86,7 @@ end
 print('\n\n')
 print('[+] Setting Traffic Configuraton...')
 pktsize = 128
-test_times = 3
+test_times = 10
 T = 15
 tick = 2500
 setting(pktsize)
